@@ -1,0 +1,59 @@
+<div class="container">
+  <h2>Consulta de Cliente</h2>
+  <form [formGroup]="queryForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="tipoDocumento">Tipo de Documento:</label>
+      <select id="tipoDocumento" formControlName="tipoDocumento">
+        <option value="" disabled selected>Seleccione un tipo</option>
+        <option value="P">Pasaporte</option>
+        <option value="C">Cédula</option>
+      </select>
+      <div *ngIf="queryForm.get('tipoDocumento')?.hasError('required') && queryForm.get('tipoDocumento')?.touched">
+        <small class="error">El tipo de documento es obligatorio.</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="numeroDocumento">Número de Documento:</label>
+      <input id="numeroDocumento" formControlName="numeroDocumento" />
+      <div *ngIf="queryForm.get('numeroDocumento')?.hasError('required') && queryForm.get('numeroDocumento')?.touched">
+        <small class="error">El número de documento es obligatorio.</small>
+      </div>
+      <div *ngIf="queryForm.get('numeroDocumento')?.hasError('pattern') && queryForm.get('numeroDocumento')?.touched">
+        <small class="error">El número de documento debe ser numérico.</small>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="!queryForm.valid">Consultar</button>
+  </form>
+
+  <div *ngIf="mensaje" class="mensaje">
+    <p>{{ mensaje }}</p>
+  </div>
+
+  <div *ngIf="userRecords.length > 0">
+    <h3>Resultados</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Tipo de Documento</th>
+          <th>Número de Documento</th>
+          <th>Ciudad</th>
+          <th>Dirección</th>
+          <th>Teléfono</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of userRecords">
+          <td>{{ user.primerNombre }} {{ user.segundoNombre }} {{ user.primerApellido }} {{ user.segundoApellido }}</td>
+          <td>{{ user.tipoDocumento }}</td>
+          <td>{{ user.numeroDocumento }}</td>
+          <td>{{ user.ciudad }}</td>
+          <td>{{ user.direccion }}</td>
+          <td>{{ user.telefono }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

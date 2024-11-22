@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';  
+import { RouterModule } from '@angular/router';  
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  template: `<router-outlet></router-outlet>`,  
+  imports: [RouterModule],  
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'front-Tecnica';
+  title = 'prueba-tecnica';
 }
